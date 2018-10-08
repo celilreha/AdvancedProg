@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Add Course </title>
+</head>
+
+<script>
+"use strict";
+function ekle() {
+    const b=[];
+    b[0] = isim.value; b[1]= Number(midterm.value); b[2]=Number(final.value);
+    isim.value=null; midterm.value=null; final.value=null;
+    a.push(b); reportA("Add");
+}
+function yazdir() {
+    outB.innerText="Name   Midterm  Final\n";
+    for(let i=0;i<a.length;i++){
+    console.log("girdi");
+        outB.innerText+=a[i][0]+" "+a[i][1]+" "+a[i][2]+"\n";
+    }
+    reportA("print");
+}
+function ortalama() {
+    outC.innerText="Name       Average\n";
+    for(let i=0;i<a.length;i++){
+        let x=(a[i][1]+a[i][2])/2;
+        outC.innerText+=a[i][0]+" "+x+"\n";
+    }
+    reportA("avg");
+}
+function maximum() {
+    outD.innerText="Name        Max\n";
+    const b=[]; let x;
+    for(let i=0;i<a.length;i++){
+        b.push((a[i][1]+a[i][2])/2);
+    }
+    
+    for(let i=0;i<b.length;i++){
+        if(Math.max(...b)==b[i]){
+        x=i;
+        }
+    }
+    outD.innerText+=a[x][0]+"    "+Math.max(...b);
+    reportA("max");
+}
+function reportA(str) {
+    console.log(str);
+}
+</script>
+
+<body>
+<h2 id=title></h2>
+
+<p>
+<b>Name</b>&emsp;&nbsp;&emsp;    <input type=text    id=isim    value=""  style="width:200px"><br>
+</p>
+<b>Midterm</b>&emsp; <input type=number  id=midterm value="" style="width:200px">
+</p>
+<p>
+<b>Final</b>&emsp;&emsp;&nbsp;&nbsp;   <input type=number  id=final value="" style="width:200px"><br>
+<p>
+<input type=button value="Add"  onClick="ekle()">
+</p>
+<p>
+<input type=button value=Print  onClick="yazdir()">&emsp;
+<input type=button value=Avg  onClick="ortalama()">
+<input type=button value=Max   onClick="maximum()">
+</p>
+
+<hr/>
+<p id=outB></p>
+<hr/>
+<p id=outC></p>
+<hr/>
+<p id=outD></p>
+
+<script>
+    title.innerText = document.title;
+    const a = [];  //initially
+    reportA("start");
+</script>
+
+</body>
+</html>
