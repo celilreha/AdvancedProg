@@ -71,6 +71,7 @@ function fileSelect(t) { //target is the button
             reader.readAsText(f);
         } else {
             outB.innerText += f.name + " is unknown ";
+            y.set(f.name,null);
         }
     }
 }
