@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="database.js"></script>
+    <title>Array vs Map </title>
+
+<script>
+"use strict";
+const url = "https://maeyler.github.io/JS/data/";
+const stdRand=[]
+for (let i=0; i<10000;i++){
+    stdRand.push(Math.floor(Math.random()*10000)+215170000+"")
+}
+const array = [], map = new Map();
+var arrayCount=0;
+var mapCount=0;
+function readData(file) {
+    console.log("readData "+file);
+    fetch(url+file)
+        .then(r => r.text(), console.log)
+        .then(addStudents, console.log);
+}
+function parseStudent(line) {
+    let b = line.split("\t");
+    let id = b[0], name = b[1], gpa = b[2];
+    let std = new Student(id, name, gpa);
+    let list = [];
+    for (let i=3; i<b.length; i++) 
+        list.push(b[i]);
+    std.courses = list
+    return std
+}
+function addStudents(txt) {
+    let msg = "\nData contains ";
+    msg += txt.length+" chars, ";
+    let a = txt.split("\n");
+    msg += a.length+" lines \n";
+    for (let s of a) {
+      let std = parseStudent(s);
+      array.push(std.id); map.set(std.id,std);
+    }
+    msg += array.length+" students "
+    out.innerText += msg
+}
+function intersectArray(a, b) {
+    for (let x of a)
+      if (b.includes(x)) arrayCount++ 
+}
+function intersectMap(a, b) { 
+    for (let x of a)
+        if (b.has(x)) mapCount++
+}
+function timingArray(f) {
+    let t = performance.now()
+    let x = f(stdRand,array) 
+    t = performance.now() - t
+    let s = f.name+": "+t.toPrecision(3)+" msec Match Count is:"+arrayCount
+    out.innerText += "\n"+s; console.log(s)
+    arrayCount=0;
+}
+
+function timingMap(f) {
+    let t = performance.now()
+    let x = f(stdRand, map)
+    t = performance.now() - t
+    let s = f.name+": "+t.toPrecision(3)+" msec Match Count is:"+mapCount
+    out.innerText += "\n"+s; console.log(s)
+    mapCount=0;
+}
+</script>
+</head>
+
+<body>
+<h2 id=title></h2>
+<button onClick='timingArray(intersectArray)'>Array</button>
+<button onClick='timingMap(intersectMap)'>Map</button>
+<p id=out>Question 3 in the exam</p>
+<hr />
+<b>Sample code</b>
+<pre id=sample></pre>
+<hr />
+
+<script>
+    title.innerText = document.title;
+    sample.innerText = intersectArray+"\n"+intersectMap;
+    readData("Students.txt")
+</script>
+
+</body>
+</html>
