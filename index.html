@@ -11,13 +11,14 @@
 </head>
 
 <body>
-<p><b id=docName></b> &nbsp;
-<a href="https://celilreha.github.io/AdvancedProg/CW_Array.html">CW Array</a> &nbsp;
-<a href="https://celilreha.github.io/AdvancedProg/HW_Array.html">HW_Array</a> &nbsp;
-<a href="https://celilreha.github.io/AdvancedProg/c4_data.html">C4_Data</a> &nbsp;
-<a href="https://celilreha.github.io/AdvancedProg/inspector.html">Inspector</a>
-</p>
-
+<script>
+    if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .register('sw.js')
+            .then((reg) => { console.log('SW Registered', reg) })
+            .catch(console.log)
+        }
+  </script>
 <script>
 function init() {
     	
@@ -38,10 +39,13 @@ function init() {
 
 <p><input type=file multiple onChange='fileSelect(this)' />
 </p><p>
-<a href="https://celilreha.github.io/AdvancedProg/CW_Array.html">CW Array</a> &nbsp;
-<a href="https://celilreha.github.io/AdvancedProg/HW_Array.html">HW_Array</a> &nbsp;
-<a href="https://celilreha.github.io/AdvancedProg/c4_data.html">C4_Data</a> &nbsp;
-<a href="https://celilreha.github.io/AdvancedProg/inspector.html">Inspector</a>
+<a href="https://celilreha.github.io/AdvancedProg/CW2/CW_Array.html">CW2</a> &nbsp;
+<a href="https://celilreha.github.io/AdvancedProg/CW3/inspector.html">CW3</a> &nbsp;
+<a href="https://celilreha.github.io/AdvancedProg/CW5">CW5</a> &nbsp;
+<a href="https://celilreha.github.io/AdvancedProg/CW6">CW6</a> &nbsp;
+<a href="https://celilreha.github.io/AdvancedProg/CW7">CW7</a> &nbsp;
+<a href="https://celilreha.github.io/AdvancedProg/HW1/HW_Array.html">HW1</a> &nbsp;
+<a href="https://celilreha.github.io/AdvancedProg/HW2/Database.html">HW2</a>
 </p>
 <pre id=disp1></pre>
 <img id=disp2 />
