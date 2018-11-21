@@ -1,11 +1,6 @@
 const CACHE ='JS'
-const FILES = ['/JS/', '/JS/sss/', '/JS/index.html', ...]
 function installCB(e) {
-  e.waitUntil(
-    caches.open(CACHE)
-    .then(cache => cache.addAll(FILES))
-    .catch(console.log)
-  )
+  console.log('install oldu', e.request);
 }
 self.addEventListener('install', installCB)
 function cacheCB(e) { //cache first
@@ -33,3 +28,4 @@ function fetchCB(e) { //fetch first
   )
 }
 self.addEventListener('fetch', fetchCB)
+//navigator.serviceWorker.register('https://celilreha.github.io/AdvancedProg/CW7/sw.js')

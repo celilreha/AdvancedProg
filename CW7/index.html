@@ -8,11 +8,11 @@
 </head>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('https://celilreha.github.io/AdvancedProg/CW7/sw.js')
-        .then((reg) => { console.log('SW starts', reg) })
-        .catch(console.log)
-    }
+          navigator.serviceWorker
+            .register('sw.js')
+            .then((reg) => { console.log('SW Registered', reg) })
+            .catch(console.log)
+        }
   </script>
 <script>
 "use strict";
@@ -68,7 +68,6 @@ function makeTable(x){
     {capital: "Cairo", population: 19127890, country: "Egypt"}
   ];
   makeTable(capitals)
-  navigator.serviceWorker.register('https://celilreha.github.io/AdvancedProg/CW7/sw.js')
     title.innerText = document.title;
 </script>
 
