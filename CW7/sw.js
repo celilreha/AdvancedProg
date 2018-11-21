@@ -1,5 +1,5 @@
 const CACHE ='JS'
-const FILES = ['/https://celilreha.github.io/AdvancedProg/', '/https://celilreha.github.io/AdvancedProg/CW7']
+const FILES = ['/https://celilreha.github.io/AdvancedProg/', '/https://celilreha.github.io/AdvancedProg/CW7','https://celilreha.github.io/AdvancedProg/CW2/CW_Array.html','https://celilreha.github.io/AdvancedProg/CW3/inspector.html','https://celilreha.github.io/AdvancedProg/CW5','https://celilreha.github.io/AdvancedProg/CW6','https://celilreha.github.io/AdvancedProg/CW7','https://celilreha.github.io/AdvancedProg/HW1/HW_Array.html','https://celilreha.github.io/AdvancedProg/HW2/Database.html']
 function installCB(e) {
   e.waitUntil(
     caches.open(CACHE)
