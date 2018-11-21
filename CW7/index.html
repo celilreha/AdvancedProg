@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Table of Capitals </title>
+</head>
+
+<script>
+"use strict";
+function makeTable(x){
+    let row = "";
+    for (let j of Object.keys(x[0]))
+        row += "<th>"+j+"</th>";
+    let text = "<tr>"+row+"</tr>";
+    row="";
+    for (let i of x ) {
+        for(let k of Object.keys(x[0])){
+            row += "<td>"+i[k]+"</td>";}
+        text+= "<tr>"+row+"</tr>";
+        row="";
+    }
+    out.innerText="Rows: " +(x.length+1)
+    out.innerText+="\n Columns: " +(Object.keys(x[0]).length)
+    tablo.innerHTML = text;
+}
+</script>
+
+<style>
+    table { border-collapse: collapse;}
+    th { color: white; padding: 15px 15px; border: 4px double #C0C0C0; background:black;}
+    td { 
+        color: red;
+        border: 2px dashed blue; 
+        padding: 5px 5px; 
+        text-align: center;
+    }
+</style>
+
+<body>
+<center>
+<h2 id=title></h2>
+<table id="tablo"></table>
+
+
+<form>
+  <output id=out style="width:40px" >
+</form>
+</center>
+<script>
+    const capitals = [
+    {capital: "Ankara", population: 5346518, country: "Turkey"},
+    {capital: "London", population: 8787892, country: "England"},
+    {capital: "Moscow", population: 10406578, country: "Russia"},
+    {capital: "Paris", population: 2241346, country: "France"},
+    {capital: "Berlin", population: 3711930, country: "Germany"},
+    {capital: "Athens", population: 664046, country: "Greece"},
+    {capital: "Tokyo", population: 38139625, country: "Japan"},
+    {capital: "New Delhi", population: 26453827, country: "India"},
+    {capital: "Cairo", population: 19127890, country: "Egypt"}
+  ];
+  makeTable(capitals)
+    title.innerText = document.title;
+</script>
+
+</body>
+</html> 
