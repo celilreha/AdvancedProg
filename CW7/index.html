@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <link rel="manifest" href="manifest.json">
     <title>Table of Capitals </title>
 </head>
 
@@ -60,6 +61,7 @@ function makeTable(x){
     {capital: "Cairo", population: 19127890, country: "Egypt"}
   ];
   makeTable(capitals)
+  navigator.serviceWorker.register('https://celilreha.github.io/AdvancedProg/CW7/sw.js')
     title.innerText = document.title;
 </script>
 
