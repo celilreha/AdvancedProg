@@ -1,7 +1,13 @@
 const CACHE ='JS'
+const FILES = ['/https://celilreha.github.io/AdvancedProg/', '/index.html']
 function installCB(e) {
-  console.log('install oldu', e.request);
+  e.waitUntil(
+    caches.open(CACHE)
+    .then(cache => cache.addAll(FILES))
+    .catch(console.log)
+  )
 }
+self.addEventListener('install', installCB)
 self.addEventListener('install', installCB)
 function cacheCB(e) { //cache first
   let req = e.request
