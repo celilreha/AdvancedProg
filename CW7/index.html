@@ -6,7 +6,14 @@
     <link rel="manifest" href="manifest.json">
     <title>Table of Capitals </title>
 </head>
-
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('https://celilreha.github.io/AdvancedProg/CW7/sw.js')
+        .then((reg) => { console.log('SW starts', reg) })
+        .catch(console.log)
+    }
+  </script>
 <script>
 "use strict";
 function makeTable(x){
