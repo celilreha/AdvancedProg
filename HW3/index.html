@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Animations </title>
+
+  <style>
+    #clock {
+        font-size: 52px;
+        background-color: chocolate;
+        color: white;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    img{
+        visibility: hidden;
+        display: block;
+        position: absolute;
+        left: 43%;
+        width: 150px;
+        margin-top:250px;
+    }
+    button{
+        font-size: 24px;
+        position: center;
+        background-color: bisque;
+        color: red;
+        border: 2px solid rgb(110, 14, 27);
+        padding: 10px 10px;
+    }
+      span{
+          font-size: 24px;
+          background-color: burlywood;
+          color: darkblue;
+          font-weight: bold;
+          border: 4px dashed rgb(110, 14, 27);
+          padding: 10px 10px;
+          text-align: center;
+      }
+  </style>
+</head>
+
+<body>
+<div style="text-align: center">
+    <img class="center" id=W1 src="W/1.jpg" >
+    <img class="center" id=W2 src="W/2.jpg" >
+    <img class="center" id=W3 src="W/3.jpg" >
+    <img class="center" id=W4 src="W/4.jpg" >
+</div>
+<h2 id=title></h2>
+<p id=clock></p>
+<div style="text-align: center">
+    <span>Fast <input type="range" id="deger" min="50" max="400"> Slow</span>
+    <p></p>
+    <button onClick="abc()">walk</button>
+    <button onClick="stopWalk()">stop</button>
+</div>
+<p>
+
+</p>
+
+<script>
+"use strict";
+let b;
+let c=0;
+var hm, time;  //for clock
+function twoDigits(t) {
+    if (t>9) return ""+t;
+    return "0"+t;
+}
+function setHourMin() {
+    const d = new Date();
+    hm = twoDigits(d.getHours())+":"
+        +twoDigits(d.getMinutes());
+    document.title = "Clock "+hm; 
+    //console.log(hm);
+}
+function count() {
+    const d = new Date();
+    let sec = twoDigits(d.getSeconds());
+    if (sec == "00") setHourMin();
+    clock.innerText = hm+":"+sec;
+    time = setTimeout(count, 1000);
+}
+function abc() {
+    b=1;
+    walking();
+}
+function walking() {
+    if(b===0)return true;
+        setTimeout(function () {
+            if(c==4) {
+                c = 1;
+                walk(Number(deger.value))
+                walking()
+            }else {
+                c++;
+                walk(Number(deger.value))
+                walking()
+            }},Number(deger.value))
+}
+function walk(x) {
+        if(c===1)
+            W1.animate(t5, x);
+        else if(c===2)
+            W2.animate(t5, x);
+        else if(c===3)
+            W3.animate(t5, x);
+        else if(c===4)
+            W4.animate(t5, x);
+}
+function stopWalk() {
+    b=0;
+}
+    const 
+        t1 = { transform: ["translateX(0)", "translateX(300px)", "translateX(0)"] },
+        t2 = { transform: ["rotate(0)", "rotate(90deg)", "rotate(0)"] },
+        t3 = { background: ["yellow", "cyan", "magenta", "yellow"] },
+        t4 = { fontSize: ["100%", "150%", "100%", "75%", "100%"] },
+        t5 = { visibility: ["visible","hidden","visible"]};
+    title.innerText = document.title;
+    setHourMin(); count();
+  
+</script>
+
+</body>
+</html>
