@@ -56,7 +56,12 @@
 </style>
 
 <script>
-
+    self.addEventListener('install', function (event) {
+        event.waitUntil(self.skipWaiting()); // Activate worker immediately
+    });
+    self.addEventListener('activate', function (event) {
+        event.waitUntil(self.clients.claim()); // Become available to all pages
+    });
     if ('serviceWorker' in navigator) {
           navigator.serviceWorker
             .register('https://celilreha.github.io/AdvancedProg/sw.js')
