@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <link rel="manifest" href="manifest.json">
-
     <title>Advanced Prog(by CRE) </title>
 </head>
 <style>
@@ -59,7 +58,7 @@
 <script>
     if ('serviceWorker' in navigator) {
           navigator.serviceWorker
-            .register('sw.js')
+            .register('/https://celilreha.github.io/AdvancedProg/sw.js')
             .then((reg) => { console.log('SW Registered', reg) })
             .catch(console.log)
         }
