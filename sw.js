@@ -5,6 +5,7 @@ const FILES = ['/https://celilreha.github.io/AdvancedProg/', '/https://celilreha
     'https://celilreha.github.io/AdvancedProg/CW5','https://celilreha.github.io/AdvancedProg/CW6',
     'https://celilreha.github.io/AdvancedProg/CW7','https://celilreha.github.io/AdvancedProg/HW1/HW_Array.html',
     'https://celilreha.github.io/AdvancedProg/HW2/Database.html']
+/*
 function installCB(e) {
   e.waitUntil(
     caches.open(CACHE)
@@ -39,4 +40,21 @@ function fetchCB(e) { //fetch first
 }
 self.addEventListener('fetch', fetchCB)
 navigator.serviceWorker.register('/https://celilreha.github.io/AdvancedProg/sw.js')
-
+*/
+function save(req, resp) {
+    return caches.open(CACHE)
+        .then(cache => {
+            cache.put(req, resp.clone());
+            return resp;
+        })
+        .catch(console.log)
+}
+function fetchCB(e) { //fetch first
+    let req = e.request
+    console.log('A0M0RAJAB', req.url);
+    e.respondWith(
+        fetch(req).then(r2 => save(req, r2))
+            .catch(() => { return caches.match(req).then(r1 => r1) })
+    )
+}
+self.addEventListener('fetch', fetchCB)
