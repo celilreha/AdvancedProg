@@ -1,4 +1,4 @@
-const CACHE ='JS'
+const CACHE ='AdvancedProg'
 const FILES = ['/https://celilreha.github.io/AdvancedProg/', '/https://celilreha.github.io/AdvancedProg/CW7',
     'https://celilreha.github.io/AdvancedProg/CW2/CW_Array.html',
     'https://celilreha.github.io/AdvancedProg/CW3/inspector.html',
