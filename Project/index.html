@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Hangman </title>
+</head>
+<script>
+    let count=0;
+    function makeBoxes(x){
+        var c = document.getElementById("boxCanvas");
+        var ctx = c.getContext("2d");
+        let a=0;
+        for(let i=1;i<=x;i++){
+            ctx.rect((a+(20*i)), 20, 50, 50);
+            ctx.lineWidth = "3";
+            ctx.strokeStyle = "red";
+            a+=40;
+        }
+        ctx.stroke();
+    }
+    function drawOne() {
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(25, 570);
+        ctx.lineWidth = "10";
+        ctx.lineTo(225, 570);
+        if (count == 0)
+            ctx.stroke();
+    }
+    function drawTwo() {
+        drawOne();
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(125, 570);
+        ctx.lineWidth = "10";
+        ctx.lineTo(125, 30);
+        if(count==1)
+            ctx.stroke();
+
+    }
+    function drawThree() {
+        drawTwo();
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(120, 30);
+        ctx.lineWidth = "10";
+        ctx.lineTo(300, 30);
+        ctx.moveTo(125, 150);
+        ctx.lineWidth = "10";
+        ctx.lineTo(220, 30);
+        if(count==2)
+            ctx.stroke();
+
+    }
+    function drawFour() {
+        drawThree();
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(295, 30);
+        ctx.lineWidth = "10";
+        ctx.lineTo(295, 150);
+        if(count==3)
+            ctx.stroke();
+
+    }
+    function drawFive() {
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(295, 180, 30, 0, 2 * Math.PI);
+        ctx.lineWidth = "10";
+        ctx.stroke();
+
+    }
+    function drawSix() {
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(295, 210);
+        ctx.lineWidth = "10";
+        ctx.lineTo(295, 350);
+        ctx.stroke();
+
+    }
+    function drawSeven() {
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(295, 250);
+        ctx.lineWidth = "10";
+        ctx.lineTo(350, 225);
+        ctx.moveTo(295, 250);
+        ctx.lineWidth = "10";
+        ctx.lineTo(240, 225);
+        ctx.stroke();
+
+    }
+    function drawEight() {
+        var c = document.getElementById("manCanvas");
+        var ctx = c.getContext("2d");
+        ctx.moveTo(295, 350);
+        ctx.lineWidth = "10";
+        ctx.lineTo(350, 400);
+        ctx.moveTo(295, 350);
+        ctx.lineWidth = "10";
+        ctx.lineTo(240, 400);
+        ctx.stroke();
+
+    }
+</script>
+<style>
+    body{
+        background-color:lightgray;
+    }
+    canvas.a{
+        margin-top: 750px;
+        margin-left: 30px;
+        display: block;
+        position: absolute;
+    }
+    canvas.b{
+        margin-top: 100px;
+        margin-left: 30px;
+        display: block;
+        position: absolute;
+    }
+</style>
+<body>
+<canvas class="a" id="boxCanvas" width="900" height="100" style="border:5px solid black;">.</canvas>
+<canvas class="b" id="manCanvas" width="500" height="600" style="border:5px solid black;">.</canvas>
+<script>
+    makeBoxes(10)
+    count=3;
+    drawFour()
+    count=4;
+    drawFive()
+    drawSix()
+    drawSeven()
+    drawEight()
+</script>
+<p>
+<h1 id=title >HANGMAN</h1>
+</p>
+<hr />
+
+
+</body>
+</html>
