@@ -1,0 +1,102 @@
+
+body{
+    background-color:lightgray;
+    max-width: 1000px;
+    text-align: center;
+    font-size: 18px;
+    color:black;
+    font-family: Ubuntu;
+}
+canvas.a{
+    margin-top: 750px;
+    margin-left: 10px;
+    display: block;
+    position: absolute;
+}
+canvas.b {
+    margin-top: 100px;
+    margin-left: 10px;
+    display: block;
+    position: absolute;
+}
+
+#alphabet {
+    margin-left: 350px;
+    max-width: 600px;
+    min-width: 200px;
+}
+#alphabet:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#alphabet li {
+    float: left;
+    margin: 0 10px 10px 0;
+    list-style: none;
+    width: 35px;
+    height: 35px;
+    padding-top: 10px;
+    background: blue;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    border: solid 1px #fff;
+}
+#alphabet li:hover {
+    background: lightblue;
+    color: black;
+}
+#categoryName{
+    margin-left: 400px;
+    text-align: center;
+    background: cadetblue;
+    color:black;
+    font-size: 25px;
+    font-family: Ubuntu;
+    min-width: 300px;
+}
+#tryButton{
+    width: 75px;
+    height: 40px;
+    background: blue;
+    font-size: 20px;
+    color:white;
+    font-family :Ubuntu;
+    border-radius: 5px;
+    border: solid 2px #fff;
+}
+#tryButton:hover{
+    background: lightblue;
+    color: black;
+}
+#tryText{
+    width: 200px;
+    height: 30px;
+    background: white;
+    font-size: 20px;
+    color:blue;
+    font-family :Ubuntu;
+    border-radius: 5px;
+    border: solid 2px blue;
+}
+button{
+    width: 250px;
+    height: 100px;
+    background: blue;
+    font-size: 40px;
+    color:white;
+    font-family :Ubuntu;
+    border-radius: 20px;
+    border: solid 3px #fff;
+}
+button:hover {
+    background: lightblue;
+    color: black;
+}
+#end{
+    margin-left:390px;
+    text-align: center;
+}
+
