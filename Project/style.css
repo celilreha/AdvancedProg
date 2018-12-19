@@ -1,11 +1,15 @@
 
 body{
     background-color:lightgray;
-    max-width: 1000px;
+    max-width: 900px;
     text-align: center;
     font-size: 18px;
     color:black;
     font-family: Ubuntu;
+}
+#main{
+    margin-left: 350px;
+    min-width: 400px;
 }
 canvas.a{
     margin-top: 750px;
@@ -20,42 +24,40 @@ canvas.b {
     position: absolute;
 }
 
-#alphabet {
-    margin-left: 350px;
-    max-width: 600px;
-    min-width: 200px;
-}
 #alphabet:after {
     content: "";
     display: table;
     clear: both;
+    margin:0 auto;
 }
 
-#alphabet li {
+#alphabet button {
     float: left;
     margin: 0 10px 10px 0;
     list-style: none;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     padding-top: 10px;
     background: blue;
     color: white;
     font-size: 18px;
     border-radius: 5px;
     border: solid 1px #fff;
+    text-align: center;
 }
-#alphabet li:hover {
+#alphabet button:hover {
     background: lightblue;
     color: black;
 }
 #categoryName{
-    margin-left: 400px;
     text-align: center;
     background: cadetblue;
     color:black;
     font-size: 25px;
     font-family: Ubuntu;
-    min-width: 300px;
+    min-width: 400px;
+    max-width: 500px;
+    margin:0 auto;
 }
 #tryButton{
     width: 75px;
@@ -80,6 +82,7 @@ canvas.b {
     font-family :Ubuntu;
     border-radius: 5px;
     border: solid 2px blue;
+    margin:0 auto;
 }
 button{
     width: 250px;
@@ -96,7 +99,6 @@ button:hover {
     color: black;
 }
 #end{
-    margin-left:390px;
-    text-align: center;
+    min-width: 350px;
 }
 
