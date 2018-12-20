@@ -21,13 +21,14 @@ window.onload = function () {
     let wordGlobal="";
     var lives=8;
     console.log(alphabet[0].toString());
-    var temp=0;
-    let count = 0;
     let scoree=0;
+    let guessStr="";
+    let guess=new Array();
+    let guessWord=new Array();
     function play(){
+        guessTxt.innerHTML=" ";
+        guess=new Array();
         score.innerHTML="Your Score is "+scoree;
-        count = 0;
-        temp=1;
         mylives.innerHTML="Let's Start"
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
@@ -39,6 +40,7 @@ window.onload = function () {
         var word=categories[c][Math.floor(Math.random() * categories[c].length)];
         word=word.toLowerCase();
         wordGlobal=word;
+        guessWord.length=word.length;
         console.log(word);
         makeBoxes(word.length);
     }
@@ -53,6 +55,8 @@ window.onload = function () {
         }
     }
     function check() {
+        if(lives==0)
+            return;
         for (var i = 0; i < alphabet.length; i++) {
             let letter=alphabet[i];
             var letterClick=document.getElementById(letter);
@@ -61,37 +65,55 @@ window.onload = function () {
             function checking() {
                 let a=0;
                 let x=0;
-                for (var i = 0; i < wordGlobal.length; i++) {
-                    a=i*40;
-                    if(wordGlobal.charAt(i)===letter){
-                        x=1;
-                        var c = document.getElementById("boxCanvas");
-                        var ctx = c.getContext("2d");
-                        ctx.font = "30px Ubuntu";
-                        ctx.fillStyle = "red";
-                        ctx.fillText(letter, (a+20 + (10 * i)), 55);
-                        count++;
-                        letterClick.disabled=true;
-
+                if(guess.includes(letter)){
+                    guessTxt.innerHTML="Used this letter";
+                }else{
+                    guessTxt.innerHTML="";
+                    guess.push(letter);
+                    for (var i = 0; i < wordGlobal.length; i++) {
+                        a=i*40;
+                        if(wordGlobal.charAt(i)===letter){
+                            guessWord[i]=letter;
+                            guessStr=guessWord.join("");
+                            x=1;
+                            var c = document.getElementById("boxCanvas");
+                            var ctx = c.getContext("2d");
+                            ctx.font = "30px Ubuntu";
+                            ctx.fillStyle = "red";
+                            ctx.fillText(letter, (a+20 + (10 * i)), 55);
+                        }
                     }
-                }
-                if (count==wordGlobal.length) {
-                    mylives.innerHTML = "Good job"
-                    lives=0;
-                    scoree+=1;
-                    score.innerHTML="Your Score is "+scoree;
-                }
-                if(x==0) {
-                    if(lives==0)
-                        return 0;
-                    else {
-                        drawArray[8 - lives]();
-                        lives -= 1;
-                        if (lives == 0) {
-                            mylives.innerHTML = "Game over";
-                            temp=0;
-                        } else {
-                            mylives.innerHTML = lives + " lives left";
+                    if (guessStr===wordGlobal) {
+                        mylives.innerHTML = "Good job"
+                        lives=0;
+                        scoree+=1;
+                        score.innerHTML="Your Score is "+scoree;
+                    }
+                    if(x==0) {
+                        if(lives==0)
+                            return 0;
+                        else {
+                            drawArray[8 - lives]();
+                            lives -= 1;
+                            if (lives == 0) {
+                                mylives.innerHTML = "Game over";
+                                for (var i = 0; i < wordGlobal.length; i++) {
+                                    a=i*40;
+                                    var c = document.getElementById("boxCanvas");
+                                    var ctx = c.getContext("2d");
+                                    ctx.clearRect((a+10+ (10 * i)),25,40,40)
+                                    ctx.font = "30px Ubuntu";
+                                    ctx.fillStyle = "red";
+                                    ctx.fillText(wordGlobal.charAt(i), (a+20 + (10 * i)), 55);
+                                }
+                                scoree-=1;
+                                if(scoree==-1)
+                                    scoree=0;
+                                score.innerHTML="Your Score is "+scoree;
+                                setTimeout(function(){ alert("Game over"); }, 100);
+                            } else {
+                                mylives.innerHTML = lives + " lives left";
+                            }
                         }
                     }
                 }
@@ -128,12 +150,20 @@ window.onload = function () {
                 lives -= 1;
                 if (lives == 0) {
                     mylives.innerHTML = "Game over";
+                    for (var i = 0; i < wordGlobal.length; i++) {
+                        a=i*40;
+                            var c = document.getElementById("boxCanvas");
+                            var ctx = c.getContext("2d");
+                            ctx.clearRect((a+10+ (10 * i)),25,40,40)
+                            ctx.font = "30px Ubuntu";
+                            ctx.fillStyle = "red";
+                            ctx.fillText(wordGlobal.charAt(i), (a+20 + (10 * i)), 55);
+                    }
                     scoree-=1;
                     if(scoree==-1)
                         scoree=0;
                     score.innerHTML="Your Score is "+scoree;
-
-                    temp=0;
+                    setTimeout(function(){ alert("Game over"); }, 100);
                 } else {
                     mylives.innerHTML = lives + " lives left";
                 }
@@ -236,7 +266,6 @@ window.onload = function () {
         ctx.moveTo(245, 250);
         ctx.lineWidth = "10";
         ctx.lineTo(190, 225);
-
         ctx.closePath();
         ctx.stroke();
 
@@ -258,41 +287,61 @@ window.onload = function () {
     }
     var body=document.getElementById("body");
     body.addEventListener('keydown', (event) => {
+        if(lives==0)
+            return;
         let letter=event.key.toString();
         if(alphabet.includes(letter)) {
             let a = 0;
             let x = 0;
-            for (var i = 0; i < wordGlobal.length; i++) {
-                a = i * 40;
-                if (wordGlobal.charAt(i) === letter) {
-                    x = 1;
-                    var c = document.getElementById("boxCanvas");
-                    var ctx = c.getContext("2d");
-                    ctx.font = "30px Ubuntu";
-                    ctx.fillStyle = "red";
-                    ctx.fillText(letter, (a + 20 + (10 * i)), 55);
-                    count++;
-
+            if(guess.includes(letter)){
+                guessTxt.innerHTML="Used this letter";
+            }else{
+                guessTxt.innerHTML="";
+                guess.push(letter);
+                for (var i = 0; i < wordGlobal.length; i++) {
+                    a=i*40;
+                    if(wordGlobal.charAt(i)===letter){
+                        guessWord[i]=letter;
+                        guessStr=guessWord.join("");
+                        x=1;
+                        var c = document.getElementById("boxCanvas");
+                        var ctx = c.getContext("2d");
+                        ctx.font = "30px Ubuntu";
+                        ctx.fillStyle = "red";
+                        ctx.fillText(letter, (a+20 + (10 * i)), 55);
+                    }
                 }
-            }
-            if (count == wordGlobal.length) {
-                mylives.innerHTML = "Good job"
-                lives = 0;
-                scoree += 1;
-                score.innerHTML = "Your Score is " + scoree;
-                count=0;
-            }
-            if (x == 0) {
-                if (lives == 0)
-                    return 0;
-                else {
-                    drawArray[8 - lives]();
-                    lives -= 1;
-                    if (lives == 0) {
-                        mylives.innerHTML = "Game over";
-                        temp = 0;
-                    } else {
-                        mylives.innerHTML = lives + " lives left";
+                if (guessStr===wordGlobal) {
+                    mylives.innerHTML = "Good job"
+                    lives=0;
+                    scoree+=1;
+                    score.innerHTML="Your Score is "+scoree;
+                }
+                if(x==0) {
+                    if(lives==0)
+                        return 0;
+                    else {
+                        drawArray[8 - lives]();
+                        lives -= 1;
+                        if (lives == 0) {
+                            mylives.innerHTML = "Game over";
+                            for (var i = 0; i < wordGlobal.length; i++) {
+                                a=i*40;
+                                var c = document.getElementById("boxCanvas");
+                                var ctx = c.getContext("2d");
+                                ctx.clearRect((a+10+ (10 * i)),25,40,40)
+                                ctx.font = "30px Ubuntu";
+                                ctx.fillStyle = "red";
+                                ctx.fillText(wordGlobal.charAt(i), (a+20 + (10 * i)), 55);
+                            }
+                            scoree-=1;
+                            if(scoree==-1)
+                                scoree=0;
+                            score.innerHTML="Your Score is "+scoree;
+                            setTimeout(function(){ alert("Game over"); }, 100);
+                        } else {
+                            mylives.innerHTML = lives + " lives left";
+                        }
                     }
                 }
             }

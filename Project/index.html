@@ -22,6 +22,7 @@
     <p id="categoryName"></p>
     <div id="end">
     <p id="mylives" ></p>
+        <p id="guessTxt"></p>
         Try: <input onkeydown="return checkKey(event.key)" oninput="changeTxt(this.value)" type="text" name="tryText" id="tryText" ><br>
             <button id="tryButton">Try</button><br>
         <p id='score' ></p>
@@ -41,7 +42,8 @@
         document.getElementById("tryText").style.color = "blue";
     }
     function checkKey(key) {
-        return (key >= 'a' && key <= 'z')||key == 'Backspace';
+        return (key >= 'a' && key <= 'z')||(key == 'Backspace')||(key === '-')
+            ||(key === ' ');
     }
 </script>
 </body>
