@@ -19,9 +19,15 @@ window.onload = function () {
         "Islamabad","Warsaw","Lisbon","Bucharest","Moscow","Madrid","Bern","Damascus","Ankara","Ashgabat","Kyiv","Abu-Dhabi","London"];
     let drawArray=[drawOne,drawTwo,drawThree,drawFour,drawFive,drawSix,drawSeven,drawEight];
     let wordGlobal="";
-    let lives=8;
+    var lives=8;
     console.log(alphabet[0].toString());
+    var temp=0;
+    let count = 0;
+    let scoree=0;
     function play(){
+        score.innerHTML="Your Score is "+scoree;
+        count = 0;
+        temp=1;
         mylives.innerHTML="Let's Start"
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
@@ -35,32 +41,6 @@ window.onload = function () {
         wordGlobal=word;
         console.log(word);
         makeBoxes(word.length);
-        var resetClick=document.getElementById("reset");
-        if(resetClick)
-            resetClick.addEventListener("click",play,false);
-        var tryClick=document.getElementById("tryButton");
-        if(tryClick)
-            tryClick.addEventListener("click",trying,false);
-        let lettersArray=letters.innerHTML.split("\n");
-        for (var i = 0; i < lettersArray.length; i++) {
-            let letter=lettersArray[i];
-            var letterClick=document.getElementById(letter);
-            if(letterClick)
-                letterClick.addEventListener("click",checking,false);
-            function checking() {
-                let a=0;
-                for (var i = 0; i < wordGlobal.length; i++) {
-                    a=i*40;
-                    if(wordGlobal.charAt(i)===(letter)){
-                        var c = document.getElementById("boxCanvas");
-                        var ctx = c.getContext("2d");
-                        ctx.font = "30px Ubuntu";
-                        ctx.fillStyle = "red";
-                        ctx.fillText("A", (a+15 + (10 * i)), 55);
-                    }
-                }
-            }
-        }
     }
 
     function chooseCat(c) {
@@ -73,22 +53,45 @@ window.onload = function () {
         }
     }
     function check() {
-        let lettersArray=letters.innerHTML.split("\n");
-        for (var i = 0; i < lettersArray.length; i++) {
-            let letter=lettersArray[i];
-            if(letterClick)
+        for (var i = 0; i < alphabet.length; i++) {
+            let letter=alphabet[i];
             var letterClick=document.getElementById(letter);
-                letterClick.addEventListener("click",checking,false);
+            if(letterClick)
+                letterClick.addEventListener("click", checking, false);
             function checking() {
                 let a=0;
+                let x=0;
                 for (var i = 0; i < wordGlobal.length; i++) {
                     a=i*40;
-                    if(wordGlobal.charAt(i)===(letter)){
+                    if(wordGlobal.charAt(i)===letter){
+                        x=1;
                         var c = document.getElementById("boxCanvas");
                         var ctx = c.getContext("2d");
                         ctx.font = "30px Ubuntu";
                         ctx.fillStyle = "red";
-                        ctx.fillText("A", (a+15 + (10 * i)), 55);
+                        ctx.fillText(letter, (a+20 + (10 * i)), 55);
+                        count++;
+
+                    }
+                }
+                if (count==wordGlobal.length) {
+                    mylives.innerHTML = "Good job"
+                    lives=0;
+                    scoree+=1;
+                    score.innerHTML="Your Score is "+scoree;
+                }
+                if(x==0) {
+                    if(lives==0)
+                        return 0;
+                    else {
+                        drawArray[8 - lives]();
+                        lives -= 1;
+                        if (lives == 0) {
+                            mylives.innerHTML = "Game over";
+                            temp=0;
+                        } else {
+                            mylives.innerHTML = lives + " lives left";
+                        }
                     }
                 }
             }
@@ -105,24 +108,6 @@ window.onload = function () {
             list.innerHTML = alphabet[i];
             myButtons.appendChild(letters);
             letters.appendChild(list);
-        }
-    }
-
-    function trying(){
-        if(lives==0)
-            return
-        else {
-            if (tryText.value.toLowerCase() === wordGlobal)
-                mylives.innerHTML = "Good job"
-            else {
-                drawArray[8 - lives]();
-                lives -= 1;
-                if (lives == 0) {
-                    mylives.innerHTML = "Game over";
-                } else {
-                    mylives.innerHTML = lives + " lives left";
-                }
-            }
         }
     }
     function makeBoxes(x) {
@@ -241,7 +226,52 @@ window.onload = function () {
         ctx.stroke();
 
     }
+    document.addEventListener('keydown', (event) => {
+        let letter=event.key.toString();
+        let a=0;
+        let x=0;
+        for (var i = 0; i < wordGlobal.length; i++) {
+            a=i*40;
+            if(wordGlobal.charAt(i)===letter){
+                x=1;
+                var c = document.getElementById("boxCanvas");
+                var ctx = c.getContext("2d");
+                ctx.font = "30px Ubuntu";
+                ctx.fillStyle = "red";
+                ctx.fillText(letter, (a+20 + (10 * i)), 55);
+                count++;
 
+            }
+        }
+        if (count==wordGlobal.length) {
+            mylives.innerHTML = "Good job"
+            lives=0;
+            scoree+=1;
+            score.innerHTML="Your Score is "+scoree;
+        }
+        if(x==0) {
+            if(lives==0)
+                return 0;
+            else {
+                drawArray[8 - lives]();
+                lives -= 1;
+                if (lives == 0) {
+                    mylives.innerHTML = "Game over";
+                    temp=0;
+                } else {
+                    mylives.innerHTML = lives + " lives left";
+                }
+            }
+        }
+    }, false);
     buttons();
     play();
+    var resetClick = document.getElementById("reset");
+    if (resetClick)
+        resetClick.addEventListener("click", play, false);
+    var tryClick = document.getElementById("tryButton");
+    if (tryClick)
+        tryClick.addEventListener("click", trying, false);
+    check();
+
 }
