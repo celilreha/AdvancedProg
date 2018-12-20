@@ -71,6 +71,7 @@ window.onload = function () {
                         ctx.fillStyle = "red";
                         ctx.fillText(letter, (a+20 + (10 * i)), 55);
                         count++;
+                        letterClick.disabled=true;
 
                     }
                 }
@@ -108,6 +109,35 @@ window.onload = function () {
             list.innerHTML = alphabet[i];
             myButtons.appendChild(letters);
             letters.appendChild(list);
+        }
+    }
+    function trying(){
+        if(lives==0)
+            return
+        else {
+            if (tryText.value.toLowerCase() === wordGlobal) {
+                mylives.innerHTML = "Good job"
+                lives = 0;
+                scoree+=1;
+                score.innerHTML="Your Score is "+scoree;
+                document.getElementById("tryText").value="";
+                changeTxt2();
+            }
+            else {
+                drawArray[8 - lives]();
+                lives -= 1;
+                if (lives == 0) {
+                    mylives.innerHTML = "Game over";
+                    scoree-=1;
+                    if(scoree==-1)
+                        scoree=0;
+                    score.innerHTML="Your Score is "+scoree;
+
+                    temp=0;
+                } else {
+                    mylives.innerHTML = lives + " lives left";
+                }
+            }
         }
     }
     function makeBoxes(x) {
@@ -226,40 +256,44 @@ window.onload = function () {
         ctx.stroke();
 
     }
-    document.addEventListener('keydown', (event) => {
+    var body=document.getElementById("body");
+    body.addEventListener('keydown', (event) => {
         let letter=event.key.toString();
-        let a=0;
-        let x=0;
-        for (var i = 0; i < wordGlobal.length; i++) {
-            a=i*40;
-            if(wordGlobal.charAt(i)===letter){
-                x=1;
-                var c = document.getElementById("boxCanvas");
-                var ctx = c.getContext("2d");
-                ctx.font = "30px Ubuntu";
-                ctx.fillStyle = "red";
-                ctx.fillText(letter, (a+20 + (10 * i)), 55);
-                count++;
+        if(alphabet.includes(letter)) {
+            let a = 0;
+            let x = 0;
+            for (var i = 0; i < wordGlobal.length; i++) {
+                a = i * 40;
+                if (wordGlobal.charAt(i) === letter) {
+                    x = 1;
+                    var c = document.getElementById("boxCanvas");
+                    var ctx = c.getContext("2d");
+                    ctx.font = "30px Ubuntu";
+                    ctx.fillStyle = "red";
+                    ctx.fillText(letter, (a + 20 + (10 * i)), 55);
+                    count++;
 
+                }
             }
-        }
-        if (count==wordGlobal.length) {
-            mylives.innerHTML = "Good job"
-            lives=0;
-            scoree+=1;
-            score.innerHTML="Your Score is "+scoree;
-        }
-        if(x==0) {
-            if(lives==0)
-                return 0;
-            else {
-                drawArray[8 - lives]();
-                lives -= 1;
-                if (lives == 0) {
-                    mylives.innerHTML = "Game over";
-                    temp=0;
-                } else {
-                    mylives.innerHTML = lives + " lives left";
+            if (count == wordGlobal.length) {
+                mylives.innerHTML = "Good job"
+                lives = 0;
+                scoree += 1;
+                score.innerHTML = "Your Score is " + scoree;
+                count=0;
+            }
+            if (x == 0) {
+                if (lives == 0)
+                    return 0;
+                else {
+                    drawArray[8 - lives]();
+                    lives -= 1;
+                    if (lives == 0) {
+                        mylives.innerHTML = "Game over";
+                        temp = 0;
+                    } else {
+                        mylives.innerHTML = lives + " lives left";
+                    }
                 }
             }
         }
