@@ -1,0 +1,13 @@
+{
+  "name": "The Hangman Game",
+  "start_url": "https://celilreha.github.io/AdvancedProg/index.html",
+  "display": "standalone",
+  "background_color": "black",
+  "icons": [
+    {
+      "src": "images/hangman.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

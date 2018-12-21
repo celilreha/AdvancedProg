@@ -1,8 +1,10 @@
 window.onload = function () {
-
+    t5 = { visibility: ["visible","hidden"]};
+    t1 = { height: ["10px", "300px","10px"] };
+    t2 = { width: ["10px", "300px","10px"] };
     var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-        't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        't', 'u', 'v', 'w', 'x', 'y', 'z','-'];
     var animal=["alligator","ant","bear","bee","bird","camel","cat","cheetah","chicken","chimpanzee",
         "cow","crocodile","deer","dog","dolphin","duck","eagle","elephant","fish","fly","fox","frog",
         "giraffe","goat","goldfish","hamster","horse","kangaroo","kitten","lion",
@@ -19,13 +21,23 @@ window.onload = function () {
         "Islamabad","Warsaw","Lisbon","Bucharest","Moscow","Madrid","Bern","Damascus","Ankara","Ashgabat","Kyiv","Abu-Dhabi","London"];
     let drawArray=[drawOne,drawTwo,drawThree,drawFour,drawFive,drawSix,drawSeven,drawEight];
     let wordGlobal="";
-    var lives=8;
+    var lives=0;
     console.log(alphabet[0].toString());
     let scoree=0;
     let guessStr="";
     let guess=new Array();
     let guessWord=new Array();
+    var categories=[["Animal",animal],["Country",country],["Capital",capital]];
+    categoryName.innerHTML="Please choose a category";
+    makeCat();
     function play(){
+        var changeCategory = document.getElementById('category');
+        if(changeCategory.value==="Select a Category"){
+            categoryName.innerHTML="Please choose a category";
+            return 0;
+        }
+        down.style.visibility="hidden";
+        up.style.visibility="hidden";
         guessTxt.innerHTML=" ";
         guess=new Array();
         score.innerHTML="Your Score is "+scoree;
@@ -33,30 +45,28 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.clearRect(0,0,c.width,c.height);
-        lives=8;
-        var categories=[animal,country,capital];
-        var c=Math.floor(Math.random() * categories.length);
-        chooseCat(c);
-        var word=categories[c][Math.floor(Math.random() * categories[c].length)];
-        word=word.toLowerCase();
+        let a=document.getElementById('category').options[document.getElementById('category').selectedIndex].index-1;
+        var word=categories[a][1][Math.floor(Math.random() * categories[a][1].length)];
+        word=word.toUpperCase();
         wordGlobal=word;
         guessWord.length=word.length;
+        lives=8;
         console.log(word);
         makeBoxes(word.length);
     }
-
-    function chooseCat(c) {
-        if (c==0){
-            categoryName.innerHTML="The choosen category is Animals";
-        }else if (c==1){
-            categoryName.innerHTML="The choosen category is Countries";
-        }else if (c==2){
-            categoryName.innerHTML="The choosen category is Capitals";
+    function makeCat(){
+        var x = document.getElementById("category");
+        var option = document.createElement("option");
+        option.text = "Select a Category";
+        x.add(option);
+        for(var i=0; i<categories.length;i++){
+            var x = document.getElementById("category");
+            var option = document.createElement("option");
+            option.text = categories[i][0].toString();
+            x.add(option);
         }
     }
     function check() {
-        if(lives==0)
-            return;
         for (var i = 0; i < alphabet.length; i++) {
             let letter=alphabet[i];
             var letterClick=document.getElementById(letter);
@@ -65,11 +75,14 @@ window.onload = function () {
             function checking() {
                 let a=0;
                 let x=0;
+                letter=letter.toUpperCase();
                 if(guess.includes(letter)){
                     guessTxt.innerHTML="Used this letter";
                 }else{
                     guessTxt.innerHTML="";
                     guess.push(letter);
+                    if(wordGlobal.length==0)
+                        return;
                     for (var i = 0; i < wordGlobal.length; i++) {
                         a=i*40;
                         if(wordGlobal.charAt(i)===letter){
@@ -84,19 +97,26 @@ window.onload = function () {
                         }
                     }
                     if (guessStr===wordGlobal) {
-                        mylives.innerHTML = "Good job"
+                        mylives.innerHTML = "Good job";
+                        setTimeout(function(){ alert("Congratulations!"); }, 1100);
+                        up.style.visibility="visible";
+                        up.animate(t1,1000);
+                        up.animate(t2,1000);
                         lives=0;
                         scoree+=1;
                         score.innerHTML="Your Score is "+scoree;
                     }
                     if(x==0) {
-                        if(lives==0)
+                        if(lives==0 || wordGlobal.length==0)
                             return 0;
                         else {
                             drawArray[8 - lives]();
                             lives -= 1;
                             if (lives == 0) {
                                 mylives.innerHTML = "Game over";
+                                down.style.visibility="visible";
+                                down.animate(t1,1000);
+                                down.animate(t2,1000);
                                 for (var i = 0; i < wordGlobal.length; i++) {
                                     a=i*40;
                                     var c = document.getElementById("boxCanvas");
@@ -110,7 +130,7 @@ window.onload = function () {
                                 if(scoree==-1)
                                     scoree=0;
                                 score.innerHTML="Your Score is "+scoree;
-                                setTimeout(function(){ alert("Game over"); }, 100);
+                                setTimeout(function(){ alert("Game over"); }, 1100);
                             } else {
                                 mylives.innerHTML = lives + " lives left";
                             }
@@ -127,18 +147,24 @@ window.onload = function () {
         for (var i = 0; i < alphabet.length; i++) {
             letters.id = 'alphabet';
             list = document.createElement('button');
+            alphabet[i]=alphabet[i].toUpperCase();
             list.id = alphabet[i];
             list.innerHTML = alphabet[i];
             myButtons.appendChild(letters);
             letters.appendChild(list);
         }
+
     }
     function trying(){
         if(lives==0)
             return
         else {
-            if (tryText.value.toLowerCase() === wordGlobal) {
-                mylives.innerHTML = "Good job"
+            if (tryText.value.toUpperCase() === wordGlobal) {
+                mylives.innerHTML = "Good job";
+                setTimeout(function(){ alert("Congratulations!"); }, 1100);
+                up.style.visibility="visible";
+                up.animate(t1,1000);
+                up.animate(t2,1000);
                 lives = 0;
                 scoree+=1;
                 score.innerHTML="Your Score is "+scoree;
@@ -148,8 +174,11 @@ window.onload = function () {
             else {
                 drawArray[8 - lives]();
                 lives -= 1;
-                if (lives == 0) {
+                if (lives == 0 && wordGlobal.length>0) {
                     mylives.innerHTML = "Game over";
+                    down.style.visibility="visible";
+                    down.animate(t1,1000);
+                    down.animate(t2,1000);
                     for (var i = 0; i < wordGlobal.length; i++) {
                         a=i*40;
                             var c = document.getElementById("boxCanvas");
@@ -163,7 +192,7 @@ window.onload = function () {
                     if(scoree==-1)
                         scoree=0;
                     score.innerHTML="Your Score is "+scoree;
-                    setTimeout(function(){ alert("Game over"); }, 100);
+                    setTimeout(function(){ alert("Game over"); }, 1100);
                 } else {
                     mylives.innerHTML = lives + " lives left";
                 }
@@ -289,10 +318,11 @@ window.onload = function () {
     body.addEventListener('keydown', (event) => {
         if(lives==0)
             return;
-        let letter=event.key.toString();
+        let letter=event.key.toString().toUpperCase();
         if(alphabet.includes(letter)) {
             let a = 0;
             let x = 0;
+            letter=letter.toUpperCase();
             if(guess.includes(letter)){
                 guessTxt.innerHTML="Used this letter";
             }else{
@@ -313,18 +343,25 @@ window.onload = function () {
                 }
                 if (guessStr===wordGlobal) {
                     mylives.innerHTML = "Good job"
+                    setTimeout(function(){ alert("Congratulations!"); }, 1100);
+                    up.style.visibility="visible";
+                    up.animate(t1,1000);
+                    up.animate(t2,1000);
                     lives=0;
                     scoree+=1;
                     score.innerHTML="Your Score is "+scoree;
                 }
                 if(x==0) {
-                    if(lives==0)
+                    if(lives==0 && wordGlobal.length>0)
                         return 0;
                     else {
                         drawArray[8 - lives]();
                         lives -= 1;
                         if (lives == 0) {
                             mylives.innerHTML = "Game over";
+                            down.style.visibility="visible";
+                            down.animate(t1,1000);
+                            down.animate(t2,1000);
                             for (var i = 0; i < wordGlobal.length; i++) {
                                 a=i*40;
                                 var c = document.getElementById("boxCanvas");
@@ -338,7 +375,7 @@ window.onload = function () {
                             if(scoree==-1)
                                 scoree=0;
                             score.innerHTML="Your Score is "+scoree;
-                            setTimeout(function(){ alert("Game over"); }, 100);
+                            setTimeout(function(){ alert("Game over"); }, 1100);
                         } else {
                             mylives.innerHTML = lives + " lives left";
                         }
@@ -348,13 +385,35 @@ window.onload = function () {
         }
     }, false);
     buttons();
-    play();
+    check();
     var resetClick = document.getElementById("reset");
     if (resetClick)
-        resetClick.addEventListener("click", play, false);
+        resetClick.addEventListener("click", function (){
+            if(lives==0)
+                play();
+        }, false);
     var tryClick = document.getElementById("tryButton");
     if (tryClick)
         tryClick.addEventListener("click", trying, false);
-    check();
+    var playClick = document.getElementById("playButton");
+    if (playClick)
+        playClick.addEventListener("click", function (){
+            if(lives==0)
+                play();
+        }, false);
+    var changeCategory = document.getElementById('category');
+    changeCategory.addEventListener('change', function() {
+        x=this.value;
+        if (x=="Select a Category"){
+            categoryName.innerHTML="This is not a category";
+            down.style.visibility="hidden";
+            up.style.visibility="hidden";
+        }else {
+            categoryName.innerHTML="Category is: "+x;
+            down.style.visibility="hidden";
+            up.style.visibility="hidden";
+        }
+
+    }, false);
 
 }
