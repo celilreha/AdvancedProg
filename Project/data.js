@@ -172,6 +172,15 @@ window.onload = function mainFunc () {
             return
         else {
             if (tryText.value.toUpperCase() === wordGlobal) {
+                for (var i = 0; i < wordGlobal.length; i++) {
+                    a=i*35;
+                    var c = document.getElementById("boxCanvas");
+                    var ctx = c.getContext("2d");
+                    ctx.clearRect((a+12+ (10 * i)),27,31,31)
+                    ctx.font = "30px Ubuntu";
+                    ctx.fillStyle = "red";
+                    ctx.fillText(wordGlobal.charAt(i), (a+15 + (10 * i)), 55);
+                }
                 mylives.innerHTML = "Good job";
                 setTimeout(function(){ alert("Congratulations!"); }, 1100);
                 up.style.visibility="visible";
@@ -327,8 +336,8 @@ window.onload = function mainFunc () {
 
     }
     var body=document.getElementById("body");
-    var body2=body.addEventListener('keydown', (event) => {
-        if(lives==0)
+    body.addEventListener('keydown', (event) => {
+        if(lives==0 || (event.target.tagName === "INPUT"))
             return;
         let letter=event.key.toString().toUpperCase();
         if(alphabet.includes(letter)) {
