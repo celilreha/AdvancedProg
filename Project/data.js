@@ -1,7 +1,10 @@
-window.onload = function () {
+
+window.onload = function mainFunc () {
     t5 = { visibility: ["visible","hidden"]};
-    t1 = { height: ["10px", "300px","10px"] };
-    t2 = { width: ["10px", "300px","10px"] };
+    t1 = { height: ["50px", "200px","50px"] };
+    t2 = { width: ["50px", "200px","50px"] };
+    t3 = { height: ["200px","50px"] };
+    t4 = { width: ["200px","50px"] };
     var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z','-'];
@@ -22,7 +25,6 @@ window.onload = function () {
     let drawArray=[drawOne,drawTwo,drawThree,drawFour,drawFive,drawSix,drawSeven,drawEight];
     let wordGlobal="";
     var lives=0;
-    console.log(alphabet[0].toString());
     let scoree=0;
     let guessStr="";
     let guess=new Array();
@@ -32,13 +34,23 @@ window.onload = function () {
     makeCat();
     function play(){
         var changeCategory = document.getElementById('category');
+            x=changeCategory.value;
+            if (x=="Select a Category"){
+                categoryName.innerHTML="This is not a category";
+                down.style.visibility="hidden";
+                up.style.visibility="hidden";
+            }else {
+                categoryName.innerHTML="Category is: "+x;
+                down.style.visibility="hidden";
+                up.style.visibility="hidden";
+            }
         if(changeCategory.value==="Select a Category"){
             categoryName.innerHTML="Please choose a category";
             return 0;
         }
         down.style.visibility="hidden";
         up.style.visibility="hidden";
-        guessTxt.innerHTML=" ";
+        guessTxt.innerHTML=" </br> ";
         guess=new Array();
         score.innerHTML="Your Score is "+scoree;
         mylives.innerHTML="Let's Start"
@@ -52,7 +64,7 @@ window.onload = function () {
         guessWord.length=word.length;
         lives=8;
         console.log(word);
-        makeBoxes(word.length);
+        makeBoxes(wordGlobal.length);
     }
     function makeCat(){
         var x = document.getElementById("category");
@@ -79,12 +91,12 @@ window.onload = function () {
                 if(guess.includes(letter)){
                     guessTxt.innerHTML="Used this letter";
                 }else{
-                    guessTxt.innerHTML="";
+                    guessTxt.innerHTML=" </br> ";
                     guess.push(letter);
                     if(wordGlobal.length==0)
                         return;
                     for (var i = 0; i < wordGlobal.length; i++) {
-                        a=i*40;
+                        a=i*35;
                         if(wordGlobal.charAt(i)===letter){
                             guessWord[i]=letter;
                             guessStr=guessWord.join("");
@@ -93,7 +105,7 @@ window.onload = function () {
                             var ctx = c.getContext("2d");
                             ctx.font = "30px Ubuntu";
                             ctx.fillStyle = "red";
-                            ctx.fillText(letter, (a+20 + (10 * i)), 55);
+                            ctx.fillText(letter, (a+15 + (10 * i)), 55);
                         }
                     }
                     if (guessStr===wordGlobal) {
@@ -115,22 +127,22 @@ window.onload = function () {
                             if (lives == 0) {
                                 mylives.innerHTML = "Game over";
                                 down.style.visibility="visible";
-                                down.animate(t1,1000);
-                                down.animate(t2,1000);
+                                down.animate(t3,2000);
+                                down.animate(t4,2000);
                                 for (var i = 0; i < wordGlobal.length; i++) {
-                                    a=i*40;
+                                    a=i*35;
                                     var c = document.getElementById("boxCanvas");
                                     var ctx = c.getContext("2d");
-                                    ctx.clearRect((a+10+ (10 * i)),25,40,40)
+                                    ctx.clearRect((a+12+ (10 * i)),27,31,31)
                                     ctx.font = "30px Ubuntu";
                                     ctx.fillStyle = "red";
-                                    ctx.fillText(wordGlobal.charAt(i), (a+20 + (10 * i)), 55);
+                                    ctx.fillText(wordGlobal.charAt(i), (a+15 + (10 * i)), 55);
                                 }
                                 scoree-=1;
                                 if(scoree==-1)
                                     scoree=0;
                                 score.innerHTML="Your Score is "+scoree;
-                                setTimeout(function(){ alert("Game over"); }, 1100);
+                                setTimeout(function(){ alert("Game over"); }, 2100);
                             } else {
                                 mylives.innerHTML = lives + " lives left";
                             }
@@ -177,22 +189,22 @@ window.onload = function () {
                 if (lives == 0 && wordGlobal.length>0) {
                     mylives.innerHTML = "Game over";
                     down.style.visibility="visible";
-                    down.animate(t1,1000);
-                    down.animate(t2,1000);
+                    down.animate(t3,2000);
+                    down.animate(t4,2000);
                     for (var i = 0; i < wordGlobal.length; i++) {
-                        a=i*40;
-                            var c = document.getElementById("boxCanvas");
-                            var ctx = c.getContext("2d");
-                            ctx.clearRect((a+10+ (10 * i)),25,40,40)
-                            ctx.font = "30px Ubuntu";
-                            ctx.fillStyle = "red";
-                            ctx.fillText(wordGlobal.charAt(i), (a+20 + (10 * i)), 55);
+                        a=i*35;
+                        var c = document.getElementById("boxCanvas");
+                        var ctx = c.getContext("2d");
+                        ctx.clearRect((a+12+ (10 * i)),27,31,31)
+                        ctx.font = "30px Ubuntu";
+                        ctx.fillStyle = "red";
+                        ctx.fillText(wordGlobal.charAt(i), (a+15 + (10 * i)), 55);
                     }
                     scoree-=1;
                     if(scoree==-1)
                         scoree=0;
                     score.innerHTML="Your Score is "+scoree;
-                    setTimeout(function(){ alert("Game over"); }, 1100);
+                    setTimeout(function(){ alert("Game over"); }, 2100);
                 } else {
                     mylives.innerHTML = lives + " lives left";
                 }
@@ -205,10 +217,10 @@ window.onload = function () {
         ctx.clearRect(0, 0, c.width, c.height);
         let a = 0;
         for (let i = 0; i < x; i++) {
-            a =i* 40;
+            a =i* 35;
             ctx.lineWidth = "3";
             ctx.strokeStyle = "blue";
-            ctx.strokeRect((a+10+ (10 * i)), 25, 40, 40);
+            ctx.strokeRect((a+10+ (10 * i)), 25, 35, 35);
         }
 
     }
@@ -216,9 +228,9 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.moveTo(25, 570);
+        ctx.moveTo(0, 570);
         ctx.lineWidth = "10";
-        ctx.lineTo(125, 570);
+        ctx.lineTo(100, 570);
         ctx.closePath();
         ctx.stroke();
     }
@@ -227,9 +239,9 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.moveTo(75, 570);
+        ctx.moveTo(50, 570);
         ctx.lineWidth = "10";
-        ctx.lineTo(75, 30);
+        ctx.lineTo(50, 30);
         ctx.closePath();
         ctx.stroke();
 
@@ -239,12 +251,12 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.moveTo(70, 30);
+        ctx.moveTo(45, 30);
         ctx.lineWidth = "10";
-        ctx.lineTo(250, 30);
-        ctx.moveTo(75, 150);
+        ctx.lineTo(200, 30);
+        ctx.moveTo(50, 150);
         ctx.lineWidth = "10";
-        ctx.lineTo(170, 30);
+        ctx.lineTo(150, 30);
         ctx.closePath();
         ctx.stroke();
 
@@ -254,9 +266,9 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.moveTo(245, 30);
+        ctx.moveTo(195, 30);
         ctx.lineWidth = "10";
-        ctx.lineTo(245, 150);
+        ctx.lineTo(195, 150);
         ctx.closePath();
         ctx.stroke();
 
@@ -266,7 +278,7 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.arc(245, 180, 30, 3*Math.PI/2, -Math.PI/2);
+        ctx.arc(195, 180, 30, 3*Math.PI/2, -Math.PI/2);
         ctx.lineWidth = "10";
         ctx.closePath();
         ctx.stroke();
@@ -277,9 +289,9 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.moveTo(245, 210);
+        ctx.moveTo(195, 210);
         ctx.lineWidth = "10";
-        ctx.lineTo(245, 350);
+        ctx.lineTo(195, 350);
         ctx.closePath();
         ctx.stroke();
 
@@ -289,12 +301,12 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.moveTo(245, 250);
+        ctx.moveTo(195, 250);
         ctx.lineWidth = "10";
-        ctx.lineTo(300, 225);
-        ctx.moveTo(245, 250);
+        ctx.lineTo(250, 225);
+        ctx.moveTo(195, 250);
         ctx.lineWidth = "10";
-        ctx.lineTo(190, 225);
+        ctx.lineTo(140, 225);
         ctx.closePath();
         ctx.stroke();
 
@@ -304,18 +316,18 @@ window.onload = function () {
         var c = document.getElementById("manCanvas");
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.moveTo(245, 350);
+        ctx.moveTo(195, 350);
         ctx.lineWidth = "10";
-        ctx.lineTo(300, 400);
-        ctx.moveTo(245, 350);
+        ctx.lineTo(250, 400);
+        ctx.moveTo(195, 350);
         ctx.lineWidth = "10";
-        ctx.lineTo(190, 400);
+        ctx.lineTo(140, 400);
         ctx.closePath();
         ctx.stroke();
 
     }
     var body=document.getElementById("body");
-    body.addEventListener('keydown', (event) => {
+    var body2=body.addEventListener('keydown', (event) => {
         if(lives==0)
             return;
         let letter=event.key.toString().toUpperCase();
@@ -326,10 +338,10 @@ window.onload = function () {
             if(guess.includes(letter)){
                 guessTxt.innerHTML="Used this letter";
             }else{
-                guessTxt.innerHTML="";
+                guessTxt.innerHTML=" </br> ";
                 guess.push(letter);
                 for (var i = 0; i < wordGlobal.length; i++) {
-                    a=i*40;
+                    a=i*35;
                     if(wordGlobal.charAt(i)===letter){
                         guessWord[i]=letter;
                         guessStr=guessWord.join("");
@@ -338,7 +350,7 @@ window.onload = function () {
                         var ctx = c.getContext("2d");
                         ctx.font = "30px Ubuntu";
                         ctx.fillStyle = "red";
-                        ctx.fillText(letter, (a+20 + (10 * i)), 55);
+                        ctx.fillText(letter, (a+15 + (10 * i)), 55);
                     }
                 }
                 if (guessStr===wordGlobal) {
@@ -360,22 +372,22 @@ window.onload = function () {
                         if (lives == 0) {
                             mylives.innerHTML = "Game over";
                             down.style.visibility="visible";
-                            down.animate(t1,1000);
-                            down.animate(t2,1000);
+                            down.animate(t3,2000);
+                            down.animate(t4,2000);
                             for (var i = 0; i < wordGlobal.length; i++) {
-                                a=i*40;
+                                a=i*35;
                                 var c = document.getElementById("boxCanvas");
                                 var ctx = c.getContext("2d");
-                                ctx.clearRect((a+10+ (10 * i)),25,40,40)
+                                ctx.clearRect((a+12+ (10 * i)),27,31,31)
                                 ctx.font = "30px Ubuntu";
                                 ctx.fillStyle = "red";
-                                ctx.fillText(wordGlobal.charAt(i), (a+20 + (10 * i)), 55);
+                                ctx.fillText(wordGlobal.charAt(i), (a+15 + (10 * i)), 55);
                             }
                             scoree-=1;
                             if(scoree==-1)
                                 scoree=0;
                             score.innerHTML="Your Score is "+scoree;
-                            setTimeout(function(){ alert("Game over"); }, 1100);
+                            setTimeout(function(){ alert("Game over"); }, 2100);
                         } else {
                             mylives.innerHTML = lives + " lives left";
                         }
@@ -388,32 +400,17 @@ window.onload = function () {
     check();
     var resetClick = document.getElementById("reset");
     if (resetClick)
-        resetClick.addEventListener("click", function (){
-            if(lives==0)
-                play();
-        }, false);
+        resetClick.addEventListener("click", play, false);
     var tryClick = document.getElementById("tryButton");
     if (tryClick)
-        tryClick.addEventListener("click", trying, false);
+        tryClick.addEventListener("click", function (){
+            if(document.getElementById("tryText").value=="")
+                return;
+            trying();
+        }, false);
     var playClick = document.getElementById("playButton");
     if (playClick)
-        playClick.addEventListener("click", function (){
-            if(lives==0)
-                play();
-        }, false);
-    var changeCategory = document.getElementById('category');
-    changeCategory.addEventListener('change', function() {
-        x=this.value;
-        if (x=="Select a Category"){
-            categoryName.innerHTML="This is not a category";
-            down.style.visibility="hidden";
-            up.style.visibility="hidden";
-        }else {
-            categoryName.innerHTML="Category is: "+x;
-            down.style.visibility="hidden";
-            up.style.visibility="hidden";
-        }
+        playClick.addEventListener("click", play, false);
 
-    }, false);
 
 }

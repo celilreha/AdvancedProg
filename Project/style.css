@@ -8,17 +8,18 @@ body{
     font-family: Ubuntu;
 }
 #main{
-    margin-left: 350px;
+    margin-left: 250px;
     min-width: 400px;
 }
 canvas.a{
-    margin-top: 750px;
+    margin-top: 700px;
     margin-left: 10px;
     display: block;
     position: absolute;
 }
+
 canvas.b {
-    margin-top: 100px;
+    margin-top: 70px;
     margin-left: 10px;
     display: block;
     position: absolute;
@@ -29,6 +30,7 @@ img.a{
     visibility: hidden;
     position: absolute ;
     display: block;
+    margin-left: 25px;
 }
 #alphabet:after {
     content: "";
@@ -56,12 +58,12 @@ img.a{
 }
 #categoryName{
     text-align: center;
-    background: cadetblue;
+    background-color: rgba(0, 54, 166, 0.4);
     color:black;
     font-size: 25px;
     font-family: Ubuntu;
-    min-width: 400px;
-    max-width: 500px;
+    min-width: 300px;
+    max-width: 300px;
     margin:0 auto;
 }
 #category{
@@ -98,14 +100,15 @@ img.a{
     border: solid 2px blue;
     margin:0 auto;
 }
+
 button{
-    width: 250px;
-    height: 100px;
+    width: 175px;
+    height: 50px;
     background: blue;
-    font-size: 40px;
+    font-size: 30px;
     color:white;
     font-family :Ubuntu;
-    border-radius: 20px;
+    border-radius: 10px;
     border: solid 3px #fff;
 }
 button:hover {
