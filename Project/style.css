@@ -1,15 +1,18 @@
 
 body{
     background-color:lightgray;
-    max-width: 900px;
+    max-width: 800px;
+    height: 700px;
     text-align: center;
     font-size: 18px;
     color:black;
     font-family: Ubuntu;
+    margin:0 auto;
 }
 #main{
     margin-left: 250px;
     min-width: 400px;
+    min-height: 800px;
 }
 canvas.a{
     margin-top: 700px;
@@ -32,6 +35,7 @@ img.a{
     display: block;
     margin-left: 25px;
 }
+
 #alphabet:after {
     content: "";
     display: table;
@@ -118,4 +122,24 @@ button:hover {
 #end{
     min-width: 400px;
 }
-
+#created{
+    height: 50px;
+    font-size: 18px;
+    background: black;
+    color:white;
+    text-align: center;
+    margin:0 auto;
+    max-width: 800px;
+    min-width: 650px;
+    vertical-align: center;
+    horiz-align: center;
+}
+#created a{
+    color:white;
+    text-align: center;
+}
+img.b{
+    width: 30px;
+    height: 30px;
+    margin-top:10px;
+}
