@@ -5,6 +5,9 @@ window.onload = function mainFunc () {
     t2 = { width: ["50px", "200px","50px"] };
     t3 = { height: ["200px","50px"] };
     t4 = { width: ["200px","50px"] };
+    var gameOver=new Audio("gameOver.mp3");
+    gameOver.play();
+    gameOver.pause();
     var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z','-'];
@@ -32,7 +35,7 @@ window.onload = function mainFunc () {
     var categories=[["Animal",animal],["Country",country],["Capital",capital]];
     categoryName.innerHTML="Please choose a category";
     makeCat();
-    function play(){
+    function playGame(){
         var changeCategory = document.getElementById('category');
             x=changeCategory.value;
             if (x=="Select a Category"){
@@ -85,6 +88,8 @@ window.onload = function mainFunc () {
             if(letterClick)
                 letterClick.addEventListener("click", checking, false);
             function checking() {
+                if(lives==0)
+                    return;
                 let a=0;
                 let x=0;
                 letter=letter.toUpperCase();
@@ -166,6 +171,20 @@ window.onload = function mainFunc () {
             letters.appendChild(list);
         }
 
+    }
+    function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+        this.playS = function(){
+            this.sound.play();
+        }
+        this.stopS = function(){
+            this.sound.pause();
+        }
     }
     function trying(){
         if(lives==0)
@@ -409,7 +428,7 @@ window.onload = function mainFunc () {
     check();
     var resetClick = document.getElementById("reset");
     if (resetClick)
-        resetClick.addEventListener("click", play, false);
+        resetClick.addEventListener("click", playGame, false);
     var tryClick = document.getElementById("tryButton");
     if (tryClick)
         tryClick.addEventListener("click", function (){
@@ -419,7 +438,7 @@ window.onload = function mainFunc () {
         }, false);
     var playClick = document.getElementById("playButton");
     if (playClick)
-        playClick.addEventListener("click", play, false);
+        playClick.addEventListener("click", playGame, false);
 
 
 }
