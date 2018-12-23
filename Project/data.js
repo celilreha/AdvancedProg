@@ -5,9 +5,6 @@ window.onload = function mainFunc () {
     t2 = { width: ["50px", "200px","50px"] };
     t3 = { height: ["200px","50px"] };
     t4 = { width: ["200px","50px"] };
-    var gameOver=new Audio("gameOver.mp3");
-    gameOver.play();
-    gameOver.pause();
     var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z','-'];
@@ -34,7 +31,12 @@ window.onload = function mainFunc () {
     let guessWord=new Array();
     var categories=[["Animal",animal],["Country",country],["Capital",capital]];
     categoryName.innerHTML="Please choose a category";
-    makeCat();
+    makeCat();var rightLetter=document.getElementById("rightLetter");
+    rightLetter.currentTime=0.6;
+    var goodJob=document.getElementById("goodJob");
+    var usedLetter=document.getElementById("usedLetter");
+    var wrongLetter=document.getElementById("wrongLetter");
+    var gameOver=document.getElementById("gameOverS");
     function playGame(){
         var changeCategory = document.getElementById('category');
             x=changeCategory.value;
@@ -95,6 +97,9 @@ window.onload = function mainFunc () {
                 letter=letter.toUpperCase();
                 if(guess.includes(letter)){
                     guessTxt.innerHTML="Used this letter";
+                    usedLetter.play();
+                    setTimeout(function(){ usedLetter.pause();
+                        usedLetter.currentTime=0;}, 500);
                 }else{
                     guessTxt.innerHTML=" </br> ";
                     guess.push(letter);
@@ -113,14 +118,24 @@ window.onload = function mainFunc () {
                             ctx.fillText(letter, (a+15 + (10 * i)), 55);
                         }
                     }
+                    if(x==1){
+                        rightLetter.play();
+                        setTimeout(function(){ rightLetter.pause();
+                            rightLetter.currentTime=0.6 ;}, 800);
+                    }
                     if (guessStr===wordGlobal) {
                         mylives.innerHTML = "Good job";
+                        rightLetter.pause();
+                        rightLetter.currentTime=0.6 ;
+                        goodJob.play();
+                        setTimeout(function(){ goodJob.pause();
+                            goodJob.currentTime=0 ;}, 2000);
                         setTimeout(function(){ alert("Congratulations!"); }, 1100);
                         up.style.visibility="visible";
                         up.animate(t1,1000);
                         up.animate(t2,1000);
+                        scoree=scoree+lives;
                         lives=0;
-                        scoree+=1;
                         score.innerHTML="Your Score is "+scoree;
                     }
                     if(x==0) {
@@ -129,8 +144,16 @@ window.onload = function mainFunc () {
                         else {
                             drawArray[8 - lives]();
                             lives -= 1;
+                            wrongLetter.play();
+                            setTimeout(function(){ wrongLetter.pause();
+                                wrongLetter.currentTime=0 ;}, 500);
                             if (lives == 0) {
+                                wrongLetter.pause()
+                                wrongLetter.currentTime=0;
                                 mylives.innerHTML = "Game over";
+                                gameOver.play();
+                                setTimeout(function(){ gameOver.pause();
+                                    gameOver.currentTime=0 ;}, 2000);
                                 down.style.visibility="visible";
                                 down.animate(t3,2000);
                                 down.animate(t4,2000);
@@ -172,20 +195,6 @@ window.onload = function mainFunc () {
         }
 
     }
-    function sound(src) {
-        this.sound = document.createElement("audio");
-        this.sound.src = src;
-        this.sound.setAttribute("preload", "auto");
-        this.sound.setAttribute("controls", "none");
-        this.sound.style.display = "none";
-        document.body.appendChild(this.sound);
-        this.playS = function(){
-            this.sound.play();
-        }
-        this.stopS = function(){
-            this.sound.pause();
-        }
-    }
     function trying(){
         if(lives==0)
             return
@@ -201,12 +210,17 @@ window.onload = function mainFunc () {
                     ctx.fillText(wordGlobal.charAt(i), (a+15 + (10 * i)), 55);
                 }
                 mylives.innerHTML = "Good job";
+                rightLetter.pause();
+                rightLetter.currentTime=0.6 ;
+                goodJob.play();
+                setTimeout(function(){ goodJob.pause();
+                    goodJob.currentTime=0 ;}, 2000);
                 setTimeout(function(){ alert("Congratulations!"); }, 1100);
                 up.style.visibility="visible";
                 up.animate(t1,1000);
                 up.animate(t2,1000);
+                scoree=scoree+lives;
                 lives = 0;
-                scoree+=1;
                 score.innerHTML="Your Score is "+scoree;
                 document.getElementById("tryText").value="";
                 changeTxt2();
@@ -214,8 +228,18 @@ window.onload = function mainFunc () {
             else {
                 drawArray[8 - lives]();
                 lives -= 1;
+                var wrongLetter=document.getElementById("wrongLetter");
+                wrongLetter.play();
+                setTimeout(function(){ wrongLetter.pause();
+                    wrongLetter.currentTime=0 ;}, 500);
                 if (lives == 0 && wordGlobal.length>0) {
+                    wrongLetter.pause();
+                    wrongLetter.currentTime=0;
                     mylives.innerHTML = "Game over";
+                    var gameOver=document.getElementById("gameOverS");
+                    gameOver.play();
+                    setTimeout(function(){ gameOver.pause();
+                        gameOver.currentTime=0 ;}, 2000);
                     down.style.visibility="visible";
                     down.animate(t3,2000);
                     down.animate(t4,2000);
@@ -365,6 +389,9 @@ window.onload = function mainFunc () {
             letter=letter.toUpperCase();
             if(guess.includes(letter)){
                 guessTxt.innerHTML="Used this letter";
+                usedLetter.play();
+                setTimeout(function(){ usedLetter.pause();
+                    usedLetter.currentTime=0;}, 500);
             }else{
                 guessTxt.innerHTML=" </br> ";
                 guess.push(letter);
@@ -381,14 +408,24 @@ window.onload = function mainFunc () {
                         ctx.fillText(letter, (a+15 + (10 * i)), 55);
                     }
                 }
+                if(x==1){
+                    rightLetter.play();
+                    setTimeout(function(){ rightLetter.pause();
+                        rightLetter.currentTime=0.6 ;}, 800);
+                }
                 if (guessStr===wordGlobal) {
                     mylives.innerHTML = "Good job"
+                    rightLetter.pause();
+                    rightLetter.currentTime=0.6 ;
+                    goodJob.play();
+                    setTimeout(function(){ goodJob.pause();
+                        goodJob.currentTime=0;}, 2000);
                     setTimeout(function(){ alert("Congratulations!"); }, 1100);
                     up.style.visibility="visible";
                     up.animate(t1,1000);
                     up.animate(t2,1000);
+                    scoree=scoree+lives;
                     lives=0;
-                    scoree+=1;
                     score.innerHTML="Your Score is "+scoree;
                 }
                 if(x==0) {
@@ -397,8 +434,15 @@ window.onload = function mainFunc () {
                     else {
                         drawArray[8 - lives]();
                         lives -= 1;
+                        wrongLetter.play();
+                        setTimeout(function(){ wrongLetter.pause();
+                            wrongLetter.currentTime=0;}, 500);
                         if (lives == 0) {
+                            wrongLetter.pause()
                             mylives.innerHTML = "Game over";
+                            gameOver.play();
+                            setTimeout(function(){ wrongLetter.pause();
+                                wrongLetter.currentTime=0;}, 2000);
                             down.style.visibility="visible";
                             down.animate(t3,2000);
                             down.animate(t4,2000);
@@ -439,6 +483,7 @@ window.onload = function mainFunc () {
     var playClick = document.getElementById("playButton");
     if (playClick)
         playClick.addEventListener("click", playGame, false);
+
 
 
 }

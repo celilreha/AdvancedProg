@@ -9,7 +9,6 @@
     <script src="data.js" type="text/javascript"></script>
     <title>Hangman </title>
 </head>
-
 <body id="body">
 
 <canvas class="a" id="boxCanvas" width="666" height="80" >.</canvas>
@@ -55,6 +54,7 @@
     function checkKey(key) {
         return (key >= 'a' && key <= 'z')||(key == 'Backspace')||(key === '-');
     }
+
 </script>
 <script>
     self.addEventListener('install', function (event) {
@@ -77,9 +77,20 @@
         Created by &nbsp;<a href="https://celilreha.github.io/AdvancedProg">Celilreha</a>
     </div>
 </footer>
-<audio controls>
-    <source src="gameOver.mp3" type="audio/mpeg" id="gameOverSound">
-    Your browser does not support the audio element.
+<audio id="gameOverS">
+    <source  src="sounds/gameOver.mp3" type="audio/mpeg">
+</audio>
+<audio id="goodJob">
+    <source  src="sounds/goodJob.mp3" type="audio/mpeg">
+</audio>
+<audio id="wrongLetter">
+    <source  src="sounds/wrongLetter.mp3" type="audio/mpeg">
+</audio>
+<audio id="usedLetter">
+    <source  src="sounds/usedLetter.mp3" type="audio/mpeg">
+</audio>
+<audio id="rightLetter">
+    <source  src="sounds/rightLetter.mp3" type="audio/mpeg">
 </audio>
 </body>
 
