@@ -381,6 +381,8 @@ window.onload = function mainFunc () {
     var body=document.getElementById("body");
     body.addEventListener('keydown', (event) => {
         if(lives==0 || (event.target.tagName === "INPUT"))
+            if (event.key === "Enter")
+                trying();
             return;
         let letter=event.key.toString().toUpperCase();
         if(alphabet.includes(letter)) {
